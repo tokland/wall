@@ -1,0 +1,6 @@
+<%= f.fields_for :attachments, Attachment.new, :child_index => child_index do |attachment_form| %>
+  <li>
+    <%= attachment_form.file_field :asset, :class => 'asset_file', :id => nil %>
+    [<%= link_to("quitar", '#', :class => "remove-attachment") %>]
+  </li>
+<% end %>

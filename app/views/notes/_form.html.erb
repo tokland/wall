@@ -1,0 +1,10 @@
+<%= form_for([live_class, note], 
+      :html => {:class => "note", :multipart => true, :target => 'upload_frame'}) do |f| %>
+  <%= hidden_field_tag :cb, "application.newNoteInserted" %>
+  <%= f.text_area :body, :size => '80x4' %>
+  <%= link_to("Añadir fichero", '#', :class => "add-attachment") %>
+  
+  <ul class="attachments">
+  </ul>
+  <%= f.submit 'Publicar' %>
+<% end %>

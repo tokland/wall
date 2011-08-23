@@ -1,0 +1,27 @@
+<h1>Clases</h1>
+
+<table>
+  <tr>
+    <th>Creador</th>
+    <th>Url</th>
+    <th></th>
+    <th></th>
+    <th></th>
+  </tr>
+
+<% @live_classes.each do |live_class| %>
+  <tr>
+    <td><%= live_class.creator.name %></td>
+    <td><%= link_to(live_class.url) %></td>
+    <td><%= link_to 'Mostrar', live_class %></td>
+    <% if live_class.creator == current_user %>
+      <td><%= link_to 'Editar', edit_live_class_path(live_class) %></td>
+      <td><%= link_to 'Eliminar', live_class, :confirm => 'Are you sure?', :method => :delete %></td>
+    <% end %>
+  </tr>
+<% end %>
+</table>
+
+<br />
+
+<%= link_to 'Crear nueva clase', new_live_class_path %>

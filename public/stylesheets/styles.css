@@ -1,0 +1,15 @@
+#new_note {
+  width: 800px;
+}
+
+ul.attachments {
+  margin-top: 0px;
+  list-style-type: none;
+}
+
+.note {
+  margin: 2px;
+  padding: 2px;
+  border: 1px solid grey;
+  width: 800px;
+}

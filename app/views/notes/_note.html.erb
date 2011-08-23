@@ -1,0 +1,21 @@
+<div id="note-<%= note.id || '#{id}' %>" class="note">
+  <div class="author">
+    [<%= note.user.name %>]
+    <% if note.user == current_user %>
+      (<%= link_to("eliminar", live_class_note_path(live_class, note.id || '#{id}'), 
+                   :method => :delete, :remote => true,
+                   :confirm => "¿Está seguro?", :class => 'delete') %>)
+    <% end %>                   
+  </div>
+  
+  <div class="body">   
+    <%= raw(note.body) %>
+  </div>
+    
+  <% if note.attachments.present? %>
+    <div class="files">                 
+      Ficheros: 
+        <%= raw note.attachments.map { |a| link_to(a.asset_file_name, paperclip_url(a.asset), :target => "_blank") }.join(", ") %>
+    </div>
+  <% end %>
+</div>

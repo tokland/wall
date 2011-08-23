@@ -1,0 +1,4 @@
+<% live_class.notes.order("created_at DESC").each do |note| %>
+  <%= render(:partial => 'notes/note.html', 
+             :locals => {:note => note, :live_class => live_class}) %>
+<% end %>

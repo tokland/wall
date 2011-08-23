@@ -1,0 +1,41 @@
+<%= javascript_include_tag 'ckeditor/ckeditor' %>
+
+<div id="notice">
+  <%= notice %>
+ </div>
+
+<div id="live_class_info">
+  <%= link_to 'Volver al índice', live_classes_path %>
+</div>
+
+<%= content_tag(:iframe, "", :src => @live_class.url, :width => 800, :height => 480) %>
+
+<div id="wall">
+  <%= render :partial => 'notes/form', :locals => {:live_class => @live_class, :note => @note} %>
+  <iframe id='upload_frame' name="upload_frame" style="width:1px;height:1px;border:0px" ></iframe>
+    
+  <div id="notes">
+    <% notes = @live_class.notes.order("created_at DESC") %>
+    <% notes.each do |note| %>
+      <%= render(:partial => 'notes/note', 
+                 :locals => {:note => note, :live_class => @live_class}) %>
+    <% end %>
+  </div>
+</div>
+
+<%= form_for([@live_class, @note]) do |f| %>
+  <% javascript_tag do %>
+    templates.new_note_form = 
+      <%= raw(render(:partial => 'notes/form', 
+              :locals => {:live_class => @live_class, :note => @note}).to_json) %>;
+
+    templates.attachment_item = <%= raw(render(:partial => 'notes/attachment_form.html', 
+              :locals => {:f => f, :child_index => '#{child_index}'}).to_json) %>;            
+
+    application = new Application('note_body', <%= raw({
+      :notes_state => notes.mash { |n| [n.id, n.state] },
+      :notes_path => raw(sync_live_class_notes_path(@live_class)),
+    }.to_json) %>);
+    
+  <% end %>
+<% end %>
